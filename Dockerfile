@@ -30,7 +30,7 @@ RUN set -xe \
 # Install Elixir
 ENV ELIXIR_VERSION=1.1.1
 RUN set -xe \
-      && curl -SL "https://codeload.github.com/elixir-lang/elixir/targ.gz/v${ELIXIR_VERSION}" -o elixir.tar.gz \
+      && curl -SL "https://codeload.github.com/elixir-lang/elixir/tar.gz/v${ELIXIR_VERSION}" -o elixir.tar.gz \
       && mkdir -p /usr/src/elixir \
       && tar -xzC /usr/src/elixir --strip-components=1 -f elixir.tar.gz \
       && rm elixir.tar.gz \
@@ -43,9 +43,10 @@ ENV NODE_VERSION 4.2.3
 RUN set -xe \
       && curl -SL "https://codeload.github.com/nodejs/node/tar.gz/v${NODE_VERSION}" -o nodejs.tar.gz \
       && mkdir -p /usr/src/nodejs \
-      && tar -xzC /usr/src/nodejs --strip-compoents=` -f nodejs.tar.gz \
+      && tar -xzC /usr/src/nodejs --strip-components=1 -f nodejs.tar.gz \
       && rm nodejs.tar.gz \
       && cd /usr/src/nodejs \
+      && ./configure \
       && make -j$(nproc) \
       && make install \
       && rm -rf /usr/src/nodejs
