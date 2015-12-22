@@ -55,8 +55,9 @@ RUN set -xe \
     && make install \
     && rm -rf /usr/src/nodejs
 
-# Install hex, rebar, and Phoenix
-ENV PHOENIX_VERSION 1.1.0
+# Install hex, rebar, and Phoenix mix archives
+ENV PHOENIX_VERSION=1.1.0 \
+    MIX_HOME=/app/.mix
 RUN mix local.hex --force \
     && mix local.rebar --force \
     && mix archive.install --force \
