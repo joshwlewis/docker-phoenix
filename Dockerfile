@@ -57,7 +57,8 @@ RUN set -xe \
 
 # Install hex, rebar, and Phoenix mix archives
 ENV PHOENIX_VERSION=1.1.0 \
-    HOME=/app
+    MIX_HOME=/root/.mix \
+    HEX_HOME=/root/.hex
 RUN mix local.hex --force \
     && mix local.rebar --force \
     && mix archive.install --force \
