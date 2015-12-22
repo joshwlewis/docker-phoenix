@@ -3,7 +3,8 @@ MAINTAINER Josh W Lewis <josh.w.lewis@gmail.com>
 
 # Install additional apt packages and setup locale
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends locales inotify-tools \
+    && apt-get install -y --no-install-recommends \
+    inotify-tools locales postgresql-client \
     && export LANG=en_US.UTF-8 \
     && echo $LANG UTF-8 > /etc/locale.gen \
     && locale-gen \
