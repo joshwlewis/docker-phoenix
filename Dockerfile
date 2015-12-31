@@ -43,7 +43,7 @@ RUN set -xe \
     && rm -rf /usr/src/elixir
 
 # Install nodejs (and npm)
-ENV NODE_VERSION 5.3.0
+ENV NODE_VERSION 4.2.4
 RUN set -xe \
     && curl -sSL -o nodejs.tar.gz \
     "https://codeload.github.com/nodejs/node/tar.gz/v${NODE_VERSION}" \
