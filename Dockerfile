@@ -31,7 +31,7 @@ RUN set -xe \
     && rm -rf /usr/src/otp
 
 # Install Elixir
-ENV ELIXIR_VERSION=1.2.0-rc.1
+ENV ELIXIR_VERSION=1.2.0
 RUN set -xe \
     && curl -sSL -o elixir.tar.gz \
     "https://codeload.github.com/elixir-lang/elixir/tar.gz/v${ELIXIR_VERSION}" \
