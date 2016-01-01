@@ -16,7 +16,7 @@ ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
 # Install Erlang/OTP
-ENV OTP_VERSION=18.1.3
+ENV OTP_VERSION=18.2.1
 RUN set -xe \
     && curl -sSL -o otp.tar.gz \
     "https://codeload.github.com/erlang/otp/tar.gz/OTP-${OTP_VERSION}" \
@@ -31,7 +31,7 @@ RUN set -xe \
     && rm -rf /usr/src/otp
 
 # Install Elixir
-ENV ELIXIR_VERSION=1.1.1
+ENV ELIXIR_VERSION=1.2.0-rc.1
 RUN set -xe \
     && curl -sSL -o elixir.tar.gz \
     "https://codeload.github.com/elixir-lang/elixir/tar.gz/v${ELIXIR_VERSION}" \
@@ -43,7 +43,7 @@ RUN set -xe \
     && rm -rf /usr/src/elixir
 
 # Install nodejs (and npm)
-ENV NODE_VERSION 4.2.3
+ENV NODE_VERSION 4.2.4
 RUN set -xe \
     && curl -sSL -o nodejs.tar.gz \
     "https://codeload.github.com/nodejs/node/tar.gz/v${NODE_VERSION}" \
@@ -57,7 +57,7 @@ RUN set -xe \
     && rm -rf /usr/src/nodejs
 
 # Install hex, rebar, and Phoenix mix archives
-ENV PHOENIX_VERSION=1.1.0 \
+ENV PHOENIX_VERSION=1.1.1 \
     MIX_HOME=/root/.mix \
     HEX_HOME=/root/.hex
 RUN mix local.hex --force \
