@@ -4,7 +4,9 @@ MAINTAINER Josh W Lewis <josh.w.lewis@gmail.com>
 ENV OTP_VERSION=18.2.1 \
     ELIXIR_VERSION=1.2.0 \
     NODE_VERSION=4.2.4 \
-    PHOENIX_VERSION=1.1.1
+    PHOENIX_VERSION=1.1.1 \
+    MIX_HOME=/usr/share/mix \
+    HEX_HOME=/usr/share/hex
 
 # Install build dependencies
 RUN apk --update add --no-cache curl openssl git make gcc libc-dev libgcc
@@ -35,7 +37,6 @@ RUN set -xe \
     && make clean install \
     && rm -rf /usr/src/elixir
 
-RUN apk --update add --no-cache --virtual build-dependencies python linux-headers
 # Install nodejs (and npm)
 RUN set -xe \
     && curl -sSL -o nodejs.tar.gz \
@@ -44,14 +45,12 @@ RUN set -xe \
     && tar -xzC /usr/src/nodejs --strip-components=1 -f nodejs.tar.gz \
     && rm nodejs.tar.gz \
     && cd /usr/src/nodejs \
-    && ./configure \
+    && ./configure --without-snapshot \
     && make \
     && make install \
     && rm -rf /usr/src/nodejs
 
 # Install hex, rebar, and Phoenix mix archives
-ENV MIX_HOME=/usr/share/mix \
-    HEX_HOME=/usr/share/hex
 RUN mix local.hex --force \
     && mix local.rebar --force \
     && mix archive.install --force \
