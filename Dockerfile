@@ -10,7 +10,8 @@ ENV OTP_VERSION=18.2.1 \
 
 # Install build dependencies
 RUN apk --update add --no-cache curl openssl git make gcc libc-dev libgcc
-RUN apk --update add --no-cache --virtual compile-deps linux-headers tar g++ autoconf openssl-dev ncurses-dev python binutils-gold
+RUN apk --update add --no-cache --virtual compile-deps linux-headers tar \
+    g++ autoconf openssl-dev ncurses-dev python binutils-gold paxctl
 
 # Install Erlang/OTP
 RUN set -xe \
@@ -22,7 +23,7 @@ RUN set -xe \
     && cd /usr/src/otp \
     && ./otp_build autoconf \
     && ./configure \
-    && make \
+    && make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && make install \
     && rm -rf /usr/src/otp
 
@@ -45,9 +46,10 @@ RUN set -xe \
     && tar -xzC /usr/src/nodejs --strip-components=1 -f nodejs.tar.gz \
     && rm nodejs.tar.gz \
     && cd /usr/src/nodejs \
-    && ./configure --without-snapshot \
-    && make \
+    && ./configure --prefix=/usr --without-snapshot \
+    && make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && make install \
+    && paxctl -cm /usr/bin/node \
     && rm -rf /usr/src/nodejs
 
 # Install hex, rebar, and Phoenix mix archives
