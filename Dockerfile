@@ -23,6 +23,7 @@ RUN apk --update add --no-cache --virtual compile-deps curl make \
     && make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && make install \
     && rm -rf /usr/src/otp \
+    && cd / \
     && curl -sSL -o elixir.tar.gz \
        "https://codeload.github.com/elixir-lang/elixir/tar.gz/v${ELIXIR_VERSION}" \
     && mkdir -p /usr/src/elixir \
@@ -31,19 +32,22 @@ RUN apk --update add --no-cache --virtual compile-deps curl make \
     && cd /usr/src/elixir \
     && make clean install \
     && rm -rf /usr/src/elixir \
+    && cd / \
     && curl -sSL -o nodejs.tar.gz \
        "https://codeload.github.com/nodejs/node/tar.gz/v${NODE_VERSION}" \
     && mkdir -p /usr/src/nodejs \
     && tar -xzC /usr/src/nodejs --strip-components=1 -f nodejs.tar.gz \
     && rm nodejs.tar.gz \
     && cd /usr/src/nodejs \
-    && ./configure --prefix=/usr --without-snapshot \
+    && ./configure --without-snapshot \
     && make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && make install \
     && paxctl -cm /usr/bin/node \
     && rm -rf /usr/src/nodejs \
+    && cd / \
     && mix local.hex --force \
     && mix local.rebar --force \
     && mix archive.install --force \
        "https://github.com/phoenixframework/archives/raw/master/phoenix_new-${PHOENIX_VERSION}.ez" \
     && apk del compile-deps \
+    && rm -rf /etc/ssl /usr/share/man /tmp/*
