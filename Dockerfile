@@ -42,7 +42,7 @@ RUN apk --update add --no-cache --virtual compile-deps curl make \
     && ./configure --without-snapshot \
     && make -j$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && make install \
-    && paxctl -cm /usr/bin/node \
+    && paxctl -cm /usr/local/bin/node \
     && rm -rf /usr/src/nodejs \
     && cd / \
     && mix local.hex --force \
