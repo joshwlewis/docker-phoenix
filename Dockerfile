@@ -1,10 +1,10 @@
 FROM alpine:3.3
 MAINTAINER Josh W Lewis <josh.w.lewis@gmail.com>
 
-ENV OTP_VERSION=18.2.1 \
-    ELIXIR_VERSION=1.2.0 \
-    NODE_VERSION=4.2.4 \
-    PHOENIX_VERSION=1.1.1 \
+ENV OTP_VERSION=18.2.4 \
+    ELIXIR_VERSION=1.2.4 \
+    NODE_VERSION=4.4.2 \
+    PHOENIX_VERSION=1.1.3 \
     MIX_HOME=/usr/share/mix \
     HEX_HOME=/usr/share/hex
 
